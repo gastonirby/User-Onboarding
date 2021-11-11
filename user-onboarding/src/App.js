@@ -51,10 +51,6 @@ export default function App() {
     })
   }
 
- useEffect(() => {
-   console.log(users)
- },[users])
-
   return (
     <div className="App">
       <header><h1>Wednesday</h1></header>
