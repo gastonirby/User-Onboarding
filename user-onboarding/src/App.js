@@ -1,6 +1,5 @@
-
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import User from './components/User';
 import UserForm from './components/UserForm';
@@ -12,7 +11,7 @@ const initialFormValues = {
   lname: '',
   email: '',
   password: '',
-  checked: false,
+  terms: false,
 }
 const initialFormErrors = {
   fname: '',
@@ -30,7 +29,7 @@ export default function App() {
   const postNewUser = newUser => {
     axios.post('https://reqres.in/api/users', newUser)
       .then(res => {
-        setUsers([res.data.data, ...users]);
+        setUsers([res.data, ...users]);
       })
       .catch(err => console.error(err))
       .finally(() => {
@@ -52,6 +51,10 @@ export default function App() {
     })
   }
 
+ useEffect(() => {
+   console.log(users)
+ },[users])
+
   return (
     <div className="App">
       <header><h1>Wednesday</h1></header>
@@ -66,7 +69,7 @@ export default function App() {
       {
         users.map(user => {
           return (
-            <User key={user.id} details={user} />
+            <User key={user.id} user={user} />
           )
         })
       }

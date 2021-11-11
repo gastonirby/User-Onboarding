@@ -13,7 +13,7 @@ export default function UserForm(props) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        submit();
+        submit(props.values);
     }
 
 return (
