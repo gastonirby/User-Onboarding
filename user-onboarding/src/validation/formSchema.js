@@ -2,26 +2,25 @@ import * as yup from 'yup';
 
 const formSchema = yup.object().shape({
     fname: yup
-    .string()
-    .trim()
-    .required('Username is required ya chump!!'),
+        .string()
+        .trim()
+        .required('Name is required'),
     lname: yup
         .string()
         .trim()
-        .required('Username is required ya chump!!'),
+        .required('Last name is required'),
     email: yup
         .string()
-        .email('Must be a valid email address ya chump!!')
-        .required('You gotta have an email.'),
-    role: yup
+        .email('Must be a valid email address')
+        .required('You must have an email.'),
+    password: yup
         .string()
-        .oneOf(['student', 'instructor', 'alumni', 'tl'], 'Role is required!!!'),
-    civil: yup
-        .string()
-        .oneOf(['married', 'single'], 'Civil status is required!!!'),
-    coding: yup.boolean(),
-    reading: yup.boolean(),
-    hiking: yup.boolean()
+        .trim()
+        .required('You gotta have a password.'),
+    terms: yup
+        .boolean()
+        .oneOf([true], 'Accept the terms, OR ELSE')
+    
 })
 
 export default formSchema;

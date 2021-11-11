@@ -1,46 +1,38 @@
 import React from 'react';
 
 export default function UserForm(props) {
-    const {
-        values,
-        submit,
-        change,
-        disabled,
-        errors,
-    } = props
+    const { change, submit, errors } = props;
+    const { fname, lname, email, password, terms} = props.values;
 
-const onSubmit = evt => {
-    evt.preventDefault()
-    submit()
-}
+    const onChange = (evt) => {
+        const { name, value, checked, type } = evt.target;
+        const newValue = type === 'checkbox' ? checked : value;
+        change(name, newValue);
+    }
 
-const onChange = evt => {
-    const { fname, lname, value, checked, type } = evt.target
-    const realValue = type === 'checkbox' ? checked : value;
-    change(fname, lname, realValue)
-}
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        submit();
+    }
 
 return (
     <form className='form container' onSubmit={onSubmit}>
 <div className='form-group submit'>
         <h2>Add a User</h2>
-        <button disabled={disabled}>submit</button>
-
-        <div className='errors'>
-          <div>{errors.fname}</div>
-          <div>{errors.lname}</div>
-          <div>{errors.email}</div>
-          <div>{errors.password}</div>
-          <div>{errors.terms}</div>
-        </div>
-      </div>
-
-      <div className='form-group inputs'>
+       
+      
         <h4>General information</h4>
+
+        <p>{errors.fname}</p>
+        <p>{errors.lname}</p>
+        <p>{errors.email}</p>
+        <p>{errors.password}</p>
+        <p>{errors.terms}</p>
 
         <label>First Name&nbsp;
           <input
-            value={values.fname}
+            value={fname}
             onChange={onChange}
             name='fname'
             type='text'
@@ -49,7 +41,7 @@ return (
 
         <label>Last Name&nbsp;
           <input
-            value={values.lname}
+            value={lname}
             onChange={onChange}
             name='lname'
             type='text'
@@ -58,7 +50,7 @@ return (
 
         <label>Email
           <input
-            value={values.email}
+            value={email}
             onChange={onChange}
             name='email'
             type='text'
@@ -67,7 +59,7 @@ return (
 
         <label>Password
           <input
-            value={values.password}
+            value={password}
             onChange={onChange}
             name='password'
             type='password'
@@ -78,11 +70,11 @@ return (
           <input
             type='checkbox'
             name='terms'
-            value='agree'
             onChange={onChange}
-            checked={values.terms}
+            checked={terms}
           />
         </label>
+        <input type='submit' value='Create User'></input>
       </div>
     </form>
 )

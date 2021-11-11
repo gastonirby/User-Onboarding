@@ -1,6 +1,6 @@
 
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import User from './components/User';
 import UserForm from './components/UserForm';
@@ -12,7 +12,7 @@ const initialFormValues = {
   lname: '',
   email: '',
   password: '',
-  terms: false,
+  checked: false,
 }
 const initialFormErrors = {
   fname: '',
@@ -21,15 +21,11 @@ const initialFormErrors = {
   password: '',
 }
 const initialUser = []
-const initialDisabled = true
-
-
 
 export default function App() {
   const [users, setUsers] = useState(initialUser) 
   const [formValues, setFormValues] = useState(initialFormValues) 
   const [formErrors, setFormErrors] = useState(initialFormErrors) 
-  const [disabled, setDisabled] = useState(initialDisabled)
 
   const postNewUser = newUser => {
     axios.post('https://reqres.in/api/users', newUser)
@@ -56,28 +52,14 @@ export default function App() {
     })
   }
 
-  const formSubmit = () => {
-    const newUser = {
-      fname: formValues.fname.trim(),
-      lname: formValues.lname.trim(),
-      email: formValues.email.trim(),
-      password: formValues.password.trim(),
-    }
-    postNewUser(newUser);
-  }
-
-
-
-
-
   return (
     <div className="App">
       <header><h1>Wednesday</h1></header>
+
       <UserForm
         values={formValues}
         change={inputChange}
-        submit={formSubmit}
-        disabled={disabled}
+        submit={postNewUser}
         errors={formErrors}
       />
 
